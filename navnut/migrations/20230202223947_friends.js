@@ -7,7 +7,7 @@ const { Knex } = require("knex");
 exports.up = function(knex) {
   return knex.schema.createTable('friends', (table) => {
     table.increments('friends_id').primary();
-    table.date('user_id').notNullable();
+    table.integer('user_id').references('user_id').inTable('users');;
   })
 };
 

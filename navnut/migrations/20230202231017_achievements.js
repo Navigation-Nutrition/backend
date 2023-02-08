@@ -5,7 +5,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable('achievements', (table) => {
         table.increments('achievements_id').primary();
-        table.string('user_id').notNullable();
+        table.integer('user_id').references('user_id').inTable('users');
         table.integer('task_completed').notNullable();
         table.integer('quiz_grade').notNullable();
       })
@@ -16,5 +16,5 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-    return knex.schema.dropTable('users')
+    return knex.schema.dropTable('achievements')
 };
