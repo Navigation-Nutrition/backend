@@ -6,6 +6,7 @@ class postModel {
     console.log(query)
     return query.rows 
   }
+
 }
 
 module.exports = postModel

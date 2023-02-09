@@ -4,7 +4,20 @@ const getAllUsers = async (req, res) => {
   const users = await usersModel.getAllUsersFromDB() 
   res.send(users) 
 }   
+const getUsersByID = async (req, res) => {
+  // console.log(req.params)
+const userID = req.params.userID
+//console.log(`userID in controller is: ${userID}`)
+const user = await usersModel.getUserIdFromDB(userID)
+// console.log(`user is ${user}`)
+  if(user){
+  res.send(user)
+  } else {
+    res.status(401).send('User not found')
+  }
+}
 
 module.exports = {
   getAllUsers,
+  getUsersByID
 }
