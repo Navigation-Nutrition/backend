@@ -1,23 +1,33 @@
 const usersModel = require("../models/usersModels")
 
 const getAllUsers = async (req, res) => {
-  const users = await usersModel.getAllUsersFromDB() 
-  res.send(users) 
-}   
+  const users = await usersModel.getAllUsersFromDB()
+  res.send(users)
+}
 const getUsersByID = async (req, res) => {
   // console.log(req.params)
-const userID = req.params.userID
-//console.log(`userID in controller is: ${userID}`)
-const user = await usersModel.getUserIdFromDB(userID)
-// console.log(`user is ${user}`)
-  if(user){
-  res.send(user)
+  const userID = req.params.userID
+  //console.log(`userID in controller is: ${userID}`)
+  const user = await usersModel.getUserIdFromDB(userID)
+  // console.log(`user is ${user}`)
+  if (user) {
+    res.send(user)
   } else {
     res.status(401).send('User not found')
+  }
+}
+const getUsersFriendsByID = async (req, res) => {
+  const userID = req.params.userID
+  const user = await usersModel.getUsersFriendsFromDB(userID)
+  if (user) {
+    res.send(user)
+  } else {
+    res.status(401).send('User not found or has no friends')
   }
 }
 
 module.exports = {
   getAllUsers,
-  getUsersByID
+  getUsersByID,
+  getUsersFriendsByID
 }
