@@ -1,0 +1,10 @@
+const usersModel = require("../models/usersModels")
+
+const getAllUsers = async (req, res) => {
+  const users = await usersModel.getAllUsersFromDB() 
+  res.send(users) 
+}   
+
+module.exports = {
+  getAllUsers,
+}
