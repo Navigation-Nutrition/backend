@@ -12,9 +12,13 @@ class usersModel {
     return query.rows[0]
   }
   static async getUsersFriendsFromDB(userID){
-    const query = await pool.query("SELECT * FROM users JOIN friends ON friends.friends_id = users.user_id WHERE friends.user_id = $1", [userID])
+    const query = await pool.query("SELECT * FROM users JOIN friends ON friends.friend_id = users.user_id WHERE friends.user_id = $1", [userID])
     console.log(query)
-    return query.rows[0]
+    return query.rows
+  }
+  static async postUserToDB(first_name,last_name,user_name,password,email){
+    const query = await pool.query('INSERT INTO users(first_name,last_name,user_name,password,email) VALUES($1, $2, $3, $4, $5) RETURNING *',[first_name,last_name,user_name,password,email])
+    return query
   }
 }
 

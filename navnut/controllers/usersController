@@ -25,9 +25,20 @@ const getUsersFriendsByID = async (req, res) => {
     res.status(401).send('User not found or has no friends')
   }
 }
+const postUserInfo = async (req, res) => {
+  const {first_name,last_name,user_name,password,email} = req.body;
+  const user = await usersModel.postUserToDB(first_name,last_name,user_name,password,email)
+  const insertedUser = user.rows
+  if (user) {
+    res.send(insertedUser)
+  } else {
+    res.status(401).send('User not found')
+  }
+}
 
 module.exports = {
   getAllUsers,
   getUsersByID,
-  getUsersFriendsByID
+  getUsersFriendsByID,
+  postUserInfo
 }

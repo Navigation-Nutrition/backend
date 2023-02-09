@@ -6,8 +6,10 @@ const { Knex } = require("knex");
  */
 exports.up = function(knex) {
   return knex.schema.createTable('friends', (table) => {
-    table.increments('friends_id').primary();
-    table.integer('user_id').references('user_id').inTable('users');;
+    table.increments('friendship_id').primary();
+    table.integer('user_id').references('user_id').inTable('users');
+    table.integer('friend_id').notNullable()
+
   })
 };
 

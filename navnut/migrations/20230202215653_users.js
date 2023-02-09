@@ -10,8 +10,7 @@ exports.up = function(knex) {
     table.string('user_name').notNullable();
     table.string('password').notNullable();
     table.string('email').notNullable();
-    table.string('friends_id').notNullable();
-    table.string('achievement_id').notNullable();
+    table.string('achievement_id');
   })
 };
 
