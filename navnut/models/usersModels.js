@@ -16,10 +16,17 @@ class usersModel {
     console.log(query)
     return query.rows
   }
-  static async postUserToDB(first_name,last_name,user_name,password,email){
+  static async postUserToDB(first_name, last_name, user_name, password, email){
     const query = await pool.query('INSERT INTO users(first_name,last_name,user_name,password,email) VALUES($1, $2, $3, $4, $5) RETURNING *',[first_name,last_name,user_name,password,email])
     return query
   }
+  static async loginUser(user_name, password){
+    const query = await pool.query (
+      "SELECT * FROM users WHERE user_name = $1 AND password = $2", [user_name, password])
+    return query.rows
+  }
+  
+
 }
 
 module.exports = usersModel

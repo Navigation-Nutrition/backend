@@ -1,4 +1,5 @@
 const usersModel = require("../models/usersModels")
+const bcrypt = require('bcrypt')
 
 const getAllUsers = async (req, res) => {
   const users = await usersModel.getAllUsersFromDB()
@@ -27,7 +28,8 @@ const getUsersFriendsByID = async (req, res) => {
 }
 const postUserInfo = async (req, res) => {
   const {first_name,last_name,user_name,password,email} = req.body;
-  const user = await usersModel.postUserToDB(first_name,last_name,user_name,password,email)
+  let hashedPassword = bcrypt.hashSync(password, 10)
+  const user = await usersModel.postUserToDB(first_name,last_name,user_name,hashedPassword,email)
   const insertedUser = user.rows
   if (user) {
     res.send(insertedUser)
@@ -35,10 +37,22 @@ const postUserInfo = async (req, res) => {
     res.status(401).send('User not found')
   }
 }
+const logInUser = async (req, res) => {
+  console.log(req.body)
+  let {user_name, password} = req.body 
+  console.log(user_name, password)
+  try{
+    const createdUser = await usersModel.loginUser(user_name, password)
+    res.send(createdUser)
+  }catch(e){
+    res.status(400).send(e)
+  }
+}
 
 module.exports = {
   getAllUsers,
   getUsersByID,
   getUsersFriendsByID,
-  postUserInfo
+  postUserInfo,
+  logInUser
 }
