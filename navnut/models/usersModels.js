@@ -22,7 +22,7 @@ class usersModel {
   }
   static async loginUser(user_name, password){
     const query = await pool.query (
-      "SELECT * FROM users WHERE user_name = $1 AND password = $2", [user_name, password])
+      "SELECT * FROM users WHERE user_name = $1 ", [user_name])
     return query.rows
   }
   
