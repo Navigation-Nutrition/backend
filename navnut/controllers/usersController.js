@@ -47,21 +47,15 @@ const postUserInfo = async (req, res) => {
 
 const logInUser = async (req, res) => {
   //console.log(req.body)
-  //const token = jwt.sign({ id: user_id }, 'hello moto');
   try {
     let { user_name, password } = req.body
-    //console.log(user_name, password)
     const foundUser = await usersModel.loginUser(user_name, password)
-    //console.log(foundUser)
-    // console.log(user_name, password)
-    // try{
-    //   const createdUser = a.wait usersModel.loginUser(user_name, password)
-    //   res.send(createdUser)
-    // } catch(e){
-    //   res.status(400).send(e)
-    // }
+    console.log(foundUser)
+    const token = jwt.sign({ id: foundUser[0].user_id }, 'hello moto');
+    console.log(token)
+
     if (foundUser && bcrypt.compareSync(password, foundUser[0].password)) {
-      res.send(foundUser)
+      res.send({token, foundUser})
     } else {
       res.status(401).send("invalid username or password")
     }
