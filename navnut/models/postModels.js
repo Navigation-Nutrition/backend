@@ -6,13 +6,19 @@ class postModel {
     console.log(query)
     return query.rows 
   }
-  static async addPostToDB(post_message){
-    const query = await pool.query('INSERT INTO post VALUES($2) RETURNING *',[post_message])
+  static async addPostToDB(post_title, post_date, post_message){
+    const query = await pool.query("INSERT INTO post (post_title, post_date, post_message) VALUES ($1,$2, $3) RETURNING *", [post_title, post_date, post_message])
     console.log(query)
     return query.rows 
+
   }
-  // static async updatePostToDB(post_message){
-  //   const query = await pool.query('INSERT INTO users(post) VALUES($1) RETURNING *',[post_message])
+  // static async updatePostToDB(post_title, post_message){
+  //   const query = await pool.query("UPDATE posts SET ")
+  //   console.log(query)
+  //   return query.rows 
+  // }
+  // static async DeletePostInDB(post_id){
+  //   const query = await pool.query("DELETE FROM post WHERE id = post_id")
   //   console.log(query)
   //   return query.rows 
   // }
