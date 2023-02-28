@@ -5,8 +5,10 @@ const getAllPost = async(req, res) => {
     res.send(post)
 }
 const createPost = async(req, res) => {
-    const post = await postModel.addPostToDB()
+    const { post_message } = req.body;
+    const post = await postModel.addPostToDB(post_message)
     res.send(post)
+
 }
 // conxt getUsersByID = await 
 module.exports = {
