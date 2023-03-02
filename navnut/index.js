@@ -1,6 +1,6 @@
 const express = require("express")
 const app = express()
-const port = process.env.port || 8000 
+const port = process.env.port || 8000
 const userRouter = require("./routes/usersRoutes")
 const postRouter = require("./routes/postsRoutes")
 var cors = require('cors')
