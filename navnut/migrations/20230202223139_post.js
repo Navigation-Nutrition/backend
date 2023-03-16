@@ -5,6 +5,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable('post', (table)=> {
         table.increments('post_id').primary();
+        table.string('img_url')
         table.string('post_title').notNullable();
         table.date('post_date');
         table.string('post_message').notNullable();
